@@ -1,0 +1,27 @@
+# ACTP Default Configuration (Compliant with PS Section 33)
+
+budget:
+  max_tool_calls: 40
+  max_tokens: 50000
+  max_seconds: 300
+
+cost:
+  token_weight: 1.0       # alpha in utility equation
+  time_weight: 0.5        # beta in utility equation
+  call_weight: 1.0        # gamma in utility equation
+  failure_weight: 1.0     # delta in utility equation
+  repetition_weight: 2.0  # lambda in utility equation
+
+replanning:
+  enabled: true
+  max_repeated_action: 2
+  diversification_bonus: 1.5
+
+verification:
+  run_tests: true
+  run_build: true
+  timeout_seconds: 60
+
+security:
+  command_timeout_seconds: 45
+  max_output_chars: 15000

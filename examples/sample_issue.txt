@@ -1,0 +1,13 @@
+Bug Fix: Incorrect password validation for administrative users
+
+Description:
+When authenticating administrative users in src/auth.py, the password check incorrectly rejects valid credentials because of a mismatched secret string comparison.
+
+Steps to reproduce:
+1. Call authenticate("admin", "secret")
+2. Function returns False instead of True.
+
+Acceptance criteria:
+1. authenticate("admin", "secret") returns True.
+2. authenticate("admin", "invalid") returns False.
+3. Test suite in tests/test_auth.py passes cleanly.

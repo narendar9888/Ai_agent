@@ -63,6 +63,7 @@ class LLMClient:
         user_prompt: str,
         temperature: float = 0.1,
         response_format: Optional[Dict[str, Any]] = None,
+        max_tokens: Optional[int] = None,
     ) -> Dict[str, Any]:
         """Calls the foundation model and returns parsed text/JSON response and token counts."""
         self.require_configured()
@@ -76,6 +77,7 @@ class LLMClient:
             "model": self.model_name,
             "messages": messages,
             "temperature": temperature,
+            "max_tokens": max_tokens or getattr(self.config, "max_tokens", 250),
         }
         if response_format:
             kwargs["response_format"] = response_format
@@ -104,9 +106,10 @@ class LLMClient:
         system_prompt: str,
         user_prompt: str,
         temperature: float = 0.1,
+        max_tokens: Optional[int] = None,
     ) -> TupleDict:
         """Invokes LLM and safely extracts a JSON object."""
-        resp = self.complete(system_prompt, user_prompt, temperature=temperature)
+        resp = self.complete(system_prompt, user_prompt, temperature=temperature, max_tokens=max_tokens)
         raw_text = resp["content"].strip()
 
         # Handle markdown fences

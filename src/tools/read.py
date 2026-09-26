@@ -19,9 +19,9 @@ class ReadFileTool(BaseTool):
             parameters={
                 "path": {"type": "string", "required": True, "description": "Relative path to file"},
                 "start_line": {"type": "integer", "default": 1, "description": "Start line (1-indexed)"},
-                "end_line": {"type": "integer", "default": 200, "description": "End line (1-indexed)"},
+                "end_line": {"type": "integer", "default": 50, "description": "End line (1-indexed)"},
             },
-            estimated_token_cost=600,
+            estimated_token_cost=250,
             estimated_time_ms=70,
             risk=0.01,
             capabilities=["code-inspection", "context-gathering"]
@@ -31,7 +31,7 @@ class ReadFileTool(BaseTool):
         start_time = time.time()
         path_str = args.get("path", "")
         start_line = max(1, int(args.get("start_line", 1)))
-        end_line = int(args.get("end_line", 200))
+        end_line = int(args.get("end_line", start_line + 49 if "start_line" in args else 50))
 
         if not path_str:
             return ToolResult(

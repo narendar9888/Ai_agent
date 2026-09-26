@@ -47,7 +47,7 @@ class SecurityConfig:
         "rm -rf /", "mkfs", "dd if=", ":(){ :|:& };:", "chmod -R 777 /",
         "> /dev/sda", "shutdown", "reboot"
     ])
-    max_output_chars: int = 15000
+    max_output_chars: int = 5000
     command_timeout_seconds: int = 45
 
 
@@ -58,6 +58,7 @@ class LLMConfig:
     base_url: Optional[str] = None
     temperature: float = 0.1
     timeout: int = 60
+    max_tokens: int = 250
 
 
 @dataclass

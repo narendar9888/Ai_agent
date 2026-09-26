@@ -191,9 +191,9 @@ class GrepTool(BaseTool):
                 "path": {"type": "string", "default": ".", "description": "Path to search within"},
                 "case_sensitive": {"type": "boolean", "default": False, "description": "Case sensitive match"},
                 "file_pattern": {"type": "string", "default": "*", "description": "Glob filter for filenames"},
-                "max_matches": {"type": "integer", "default": 50, "description": "Max line matches to return"}
+                "max_matches": {"type": "integer", "default": 20, "description": "Max line matches to return"}
             },
-            estimated_token_cost=500,
+            estimated_token_cost=250,
             estimated_time_ms=120,
             risk=0.02,
             capabilities=["text-search", "code-discovery"]
@@ -205,7 +205,7 @@ class GrepTool(BaseTool):
         path_str = args.get("path", ".")
         case_sensitive = args.get("case_sensitive", False)
         file_pattern = args.get("file_pattern", "*")
-        max_matches = args.get("max_matches", 50)
+        max_matches = args.get("max_matches", 20)
 
         if not query:
             return ToolResult(

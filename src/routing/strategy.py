@@ -105,10 +105,10 @@ class StrategyAdvisor:
             if tool_name in ("read_file", "symbol_search", "call_graph", "dependency_search"):
                 base_boost *= 1.3
         elif phase == "implementation":
-            if tool_name in ("edit_file", "apply_patch", "git_diff"):
-                base_boost *= 1.4
-            elif tool_name in ("list_files", "find_files"):
-                base_boost *= 0.5
+            if tool_name in ("edit_file", "apply_patch"):
+                base_boost *= 1.8
+            elif tool_name in ("read_file", "grep", "list_files", "find_files"):
+                base_boost *= 0.6
         elif phase == "verification":
             if tool_name in ("run_tests", "run_build", "git_diff"):
                 base_boost *= 1.5

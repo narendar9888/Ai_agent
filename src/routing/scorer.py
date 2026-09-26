@@ -144,13 +144,15 @@ class UtilityScorer:
         else:
             r_repeat = 0.0
 
-        # 5. Calculate Score
+        # 5. Calculate Score with Adaptive Token Pressure
         if not affordable and self.enable_budget_check:
             score = -999.0
         else:
+            budget_ratio = (state.budget.used_tokens / max(1, state.budget.max_tokens)) if self.enable_budget_check else 0.0
+            eff_token_weight = self.weights.token_weight * (1.0 + 1.5 * budget_ratio)
             score = (
                 (p_progress * v_progress)
-                - (self.weights.token_weight * c_tokens)
+                - (eff_token_weight * c_tokens)
                 - (self.weights.time_weight * c_time)
                 - (self.weights.call_weight * c_call)
                 - (self.weights.failure_weight * r_failure)
